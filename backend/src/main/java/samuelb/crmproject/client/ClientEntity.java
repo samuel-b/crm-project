@@ -9,14 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "clients")
+@Entity //Marks class as an entity.
+@Table(name = "clients") //Specifies table name.
 public class ClientEntity implements Serializable {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //Marks the primary key of an entity.
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Generates ID value.
 	private Long id;
 	
+	//Marks the columns of an entity.
 	@Column
 	private String lastName;
 	@Column
@@ -30,6 +31,7 @@ public class ClientEntity implements Serializable {
 	@Column
 	private String state;
 	
+	//GETTERS AND SETTERS
 	public Long getId() {
 		return id;
 	}
@@ -72,6 +74,8 @@ public class ClientEntity implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	//CONSTRUCTORS
 	
 	public ClientEntity() {}
 	
