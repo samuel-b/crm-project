@@ -5,10 +5,15 @@ interface Props {
 }
 
 const Client: React.FC<Props> = ({ client }) => {
+    const handleDelete = () => {
+        fetch(`http://localhost:8080/api/v1/clients/${client.id}`, {
+            method: "DELETE",
+        });
+    };
     return (
         <div>
-            <p>Last Name, First Name, Phone, Email, Country, State</p>
             <p>{`${client.lastName}, ${client.firstName}, ${client.phone} ${client.email}, ${client.country}, ${client.state}`}</p>
+            <button onClick={handleDelete}> Delete</button>
             <hr />
         </div>
     );
