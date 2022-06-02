@@ -7,12 +7,8 @@ interface Props {
 const Client: React.FC<Props> = ({ client }) => {
     return (
         <div>
-            <p>{client.lastName}</p>
-            <p>{client.firstName}</p>
-            <p>{client.phone}</p>
-            <p>{client.email}</p>
-            <p>{client.country}</p>
-            <p>{client.state}</p>
+            <p>Last Name, First Name, Phone, Email, Country, State</p>
+            <p>{`${client.lastName}, ${client.firstName}, ${client.phone} ${client.email}, ${client.country}, ${client.state}`}</p>
             <hr />
         </div>
     );

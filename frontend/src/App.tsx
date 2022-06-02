@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ClientList from "./containers/ClientList";
+import ClientForm from "./components/ClientForm";
 
 function App() {
     const [clients, setClients] = useState([]);
@@ -17,6 +18,7 @@ function App() {
     return (
         <>
             <ClientList clients={clients}></ClientList>
+            <ClientForm/>
         </>
     );
 }
