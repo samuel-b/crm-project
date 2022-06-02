@@ -25,6 +25,7 @@ public class ClientController {
 	//Injection of service provider into rest controller. 
 	@Autowired ClientService service;
 	
+	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<ClientEntity> create (@Valid @RequestBody ClientPostDTO data) {
 		//Creates a new instance of the entity and assigns it the values of the 
@@ -72,6 +73,7 @@ public class ClientController {
 		return new ResponseEntity<>(maybeClient.get(), HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping(value = "{id}") //builds on base path.
 	public ResponseEntity delete(@PathVariable Long id) {
 		//the value of the delete method (true if id exists)
