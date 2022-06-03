@@ -24,5 +24,6 @@ The goal of this project is to build on and solidify my knowledge of java, types
 ### Future ideas
 
 -   [ ] Additional related MySQL tables
--   [ ] Host API/DB
+-   [x] Host DB
+-   [ ] Host API
 -   [ ] Add authentication/protected paths
