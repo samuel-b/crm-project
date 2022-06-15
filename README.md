@@ -27,3 +27,6 @@ The goal of this project is to build on and solidify my knowledge of java, types
 -   [x] Host DB
 -   [ ] Host API
 -   [ ] Add authentication/protected paths
+
+## Updates
+- Deleted AWS RDS/MySQL instance a few days a go to avoid exceeding free tier limitations, will replace with a MongoDB Atlas solution.
