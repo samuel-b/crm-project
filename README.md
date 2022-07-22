@@ -14,6 +14,11 @@ will be the preview image in personal portfolio
 
 ## :bangbang: Updates
 
+22/07/2022
+
+-   Added an update modal to update a client record from the frontend
+-   Changed forms based on current requirements (name, email, phone)
+
 21/07/2022
 
 -   Removed spring boot backend/api from this repo and developed a new backend/api using azure functions/cosmosDB in a seperate repo.
@@ -21,8 +26,6 @@ will be the preview image in personal portfolio
 -   Started working on frontend implementing the create/read and update API endpoints
 
 -   Updated README using new template
-
-# SDLC
 
 ## Requirements
 
@@ -41,30 +44,37 @@ will be the preview image in personal portfolio
 
 ## Software Development
 
-Backend (Built before frontend, has own seperate github repo)
+Backend
 
--   Full CRUD auzure functions RESTful API connected to a cosmosDB for persistant data
--   Functions currently have an anonymous authentication level as the database is filled with non-sensitive dummy data (may be changed in the future)
--   Each function uses a try statement and returns the appropiate status code and data in the body of the response
--   Each function is created one at a time and tested locally before moving to the next
--   Pushed to develop branch that triggers a CI/CD github action
--   Test endpoints against azure endpoints
+-   Database: CosmosDB
+-   API: Serverless Azure Functions
+
+| HTTP Method | Endpoint          | Action                                              | Auth Level  |
+| ----------- | ----------------- | --------------------------------------------------- | ----------- |
+| GET         | /api/clients      | Returns all client documents in cosmosDB\*\*        | Anonymous\* |
+| POST        | /api/clients      | Creates a client document in cosmosDB\*\*           | Anonymous\* |
+| PUT         | /api/clients/{id} | Updates an existing client document in cosmosDB\*\* | Anonymous\* |
+| DELETE      | /api/clients/{id} | Deletes an existing client documen in cosmosDB\*\*  | Anonymous\* |
+
+\*Functions currently have an anonymous authentication level as the database is filled with non-sensitive dummy data (may be changed in the future)  
+\*\* If returns a successful response, otherwise the appropiate status code is returned
 
 Frontend
 
--   Tested I could retrieve data from the cosmosDB using the API's get/read endpoint
+-   Table component dynamically populates the table rows with client data using the GET method
 
--   Created a table component that dynamically populates the table rows with client data
+-   Modal component sends the value of the inputs in the request body using the POST method
 
--   Created a modal with a form that sends the value of the inputs in the request body to the API's create endpoint
+-   Button component in tha table's action column when clicked will delete the relevant record from the database using the DELETE method
 
--   Created an action column in the table with a delete button/action when pressed will delete the relevant record from the database using the API's delete endpoint
+-   Modal component sends the value of the inputs in the request body using the PUT method, initial value of the inputs are equal to the current document's values
 
--   Created a notification compontent that renders conditionally based on if the response from the create or delete methods were successful
+-   Notification compontent that renders conditionally (success/error) based on if the response from triggered HTTP method
 
 -   Started with validation for the create client form
 
 ## Testing
+
 (Possibly add unit testing in the future)
 
 Backend

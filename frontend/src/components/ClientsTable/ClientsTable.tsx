@@ -1,7 +1,9 @@
-import { Table, Button } from "antd";
+import { Table, Button, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React from "react";
 import { openNotification } from "./../../utilities/utilities";
+import UpdateModal from "./../UpdateModal/UpdateModal";
+import styles from "./ClientTable.module.css";
 
 interface IClient {
     lastName: string;
@@ -21,17 +23,18 @@ interface Props {
 const ClientsTable: React.FC<Props> = ({ clients, refetchGetQuery }) => {
     const columns: ColumnsType<IClient> = [
         {
+            title: "First Name",
+            dataIndex: "firstName",
+            key: "firstName",
+        },
+        {
             //Column Title
             title: "Last Name",
             //Object Key
             dataIndex: "lastName",
             key: "lastName",
         },
-        {
-            title: "First Name",
-            dataIndex: "firstName",
-            key: "firstName",
-        },
+
         {
             title: "Phone",
             dataIndex: "phone",
@@ -43,44 +46,40 @@ const ClientsTable: React.FC<Props> = ({ clients, refetchGetQuery }) => {
             key: "email",
         },
         {
-            title: "Country",
-            dataIndex: "country",
-            key: "country",
-        },
-        {
-            title: "State",
-            dataIndex: "state",
-            key: "state",
-        },
-        {
             title: "Action",
             key: "action",
             render: (_, record) => (
-                <Button
-                    danger={true}
-                    onClick={async () => {
-                        const response = await fetch(
-                            `https://crm-project-function-app.azurewebsites.net/api/clients/${record.id}`,
-                            {
-                                method: "DELETE",
-                            },
-                        );
-                        if (!response.ok) {
-                            openNotification(
-                                "error",
-                                "Something went wrong",
-                                `${response.status}: ${response.statusText}`,
+                <Space>
+                    <UpdateModal
+                        client={record}
+                        refetchGetQuery={refetchGetQuery}
+                    />
+                    <Button
+                        danger={true}
+                        onClick={async () => {
+                            const response = await fetch(
+                                `https://crm-project-function-app.azurewebsites.net/api/clients/${record.id}`,
+                                {
+                                    method: "DELETE",
+                                },
                             );
-                            return;
-                        }
-                        refetchGetQuery();
-                        openNotification(
-                            "success",
-                            "Client deleted from database",
-                        );
-                    }}>
-                    Delete
-                </Button>
+                            if (!response.ok) {
+                                openNotification(
+                                    "error",
+                                    "Something went wrong",
+                                    `${response.status}: ${response.statusText}`,
+                                );
+                                return;
+                            }
+                            refetchGetQuery();
+                            openNotification(
+                                "success",
+                                "Client deleted from database",
+                            );
+                        }}>
+                        Delete
+                    </Button>
+                </Space>
             ),
         },
     ];
@@ -88,6 +87,7 @@ const ClientsTable: React.FC<Props> = ({ clients, refetchGetQuery }) => {
     return (
         <>
             <Table
+                className={styles.ClientTableWrapper}
                 columns={columns}
                 dataSource={clients}
                 rowKey={(record) => record.id}

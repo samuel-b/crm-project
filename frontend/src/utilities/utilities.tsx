@@ -1,9 +1,8 @@
+//Imports
 import { notification } from "antd";
 
-export const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
+//Antd Components
 type NotificationType = "success" | "info" | "warning" | "error";
-
 export const openNotification = (
     type: NotificationType,
     title: string,
