@@ -2,16 +2,26 @@ import { Button, Modal, Input } from "antd";
 import React, { useState } from "react";
 import { openNotification } from "./../../utilities/utilities";
 
+interface IClient {
+    lastName: string;
+    firstName: string;
+    phone: string;
+    email: string;
+    id: string;
+}
+
 interface Props {
+    client: IClient;
     refetchGetQuery: () => void;
 }
 
-const CreateModal: React.FC<Props> = ({ refetchGetQuery }) => {
+const UpdateModal: React.FC<Props> = ({ client, refetchGetQuery }) => {
     const initialState = {
-        lastName: "",
-        firstName: "",
-        phone: "",
-        email: "",
+        lastName: client.lastName,
+        firstName: client.firstName,
+        phone: client.phone,
+        email: client.email,
+        id: client.id,
     };
 
     const handleInput = (e: any) => {
@@ -36,9 +46,9 @@ const CreateModal: React.FC<Props> = ({ refetchGetQuery }) => {
             }
         }
         const response = await fetch(
-            "https://crm-project-function-app.azurewebsites.net/api/clients/",
+            `https://crm-project-function-app.azurewebsites.net/api/clients/${client.id}`,
             {
-                method: "POST",
+                method: "PUT",
                 body: JSON.stringify(state),
             },
         );
@@ -52,8 +62,7 @@ const CreateModal: React.FC<Props> = ({ refetchGetQuery }) => {
         }
         refetchGetQuery();
         setIsModalVisible(false);
-        openNotification("success", "Client added to database");
-        setState(initialState)
+        openNotification("success", "Client updated");
     };
 
     const handleCancel = () => {
@@ -62,10 +71,10 @@ const CreateModal: React.FC<Props> = ({ refetchGetQuery }) => {
     return (
         <>
             <Button type="primary" onClick={showModal}>
-                Add Client
+                Update
             </Button>
             <Modal
-                title="Create Client"
+                title="Update Client"
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}>
@@ -102,4 +111,4 @@ const CreateModal: React.FC<Props> = ({ refetchGetQuery }) => {
     );
 };
 
-export default CreateModal;
+export default UpdateModal;

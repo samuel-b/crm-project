@@ -32,6 +32,7 @@ function App() {
 
     return (
         <>
+            {/* <h1>Client Database</h1> */}
             <ClientsTable clients={data} refetchGetQuery={handleRefresh} />
             <CreateModal refetchGetQuery={handleRefresh} />
         </>
